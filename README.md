@@ -1,2 +1,2 @@
-# -Waste
+# GWaste
 A waste management app.
