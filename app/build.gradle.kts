@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.greene.gwaste"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.greene.gwaste"
@@ -51,6 +51,7 @@ android {
 }
 
 dependencies {
+    val navVersion = "2.7.7"
 
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
@@ -67,4 +68,7 @@ dependencies {
     androidTestImplementation(libs.ui.test.junit4)
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
+
+
+    implementation("androidx.navigation:navigation-compose:$navVersion")
 }
