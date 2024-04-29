@@ -61,6 +61,12 @@ dependencies {
     implementation(libs.ui.tooling.preview)
     implementation(libs.material3)
 
+    // koin
+//    implementation(libs.koin.android)
+    implementation(libs.koin.compose)
+
+    // DataStore
+    implementation(libs.datastore)
     //firebase
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
