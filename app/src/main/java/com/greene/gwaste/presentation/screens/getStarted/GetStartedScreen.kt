@@ -1,4 +1,4 @@
-package com.greene.gwaste.getStarted
+package com.greene.gwaste.presentation.screens.getStarted
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -15,11 +15,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.greene.gwaste.R
-
-@Composable
-fun GetStartedRoute() {
-    GetStartedScreen()
-}
 
 @Composable
 fun GetStartedScreen() {

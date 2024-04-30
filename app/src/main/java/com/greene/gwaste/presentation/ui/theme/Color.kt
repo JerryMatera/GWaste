@@ -1,4 +1,4 @@
-package com.greene.gwaste.ui.theme
+package com.greene.gwaste.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

@@ -3,24 +3,15 @@ package com.greene.gwaste
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.ui.Modifier
-import com.greene.gwaste.ui.theme.GWasteTheme
+import com.greene.gwaste.presentation.navigation.GWasteNavGraph
+import com.greene.gwaste.presentation.ui.theme.GWasteTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             GWasteTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    GWasteApp()
-                }
+                GWasteNavGraph()
             }
         }
     }

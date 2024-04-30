@@ -1,4 +1,4 @@
-package com.greene.gwaste.ui.theme
+package com.greene.gwaste.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build
