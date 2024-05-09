@@ -1,4 +1,4 @@
-package com.greene.gwaste.presentation.screens.getStarted
+package com.greene.gwaste.presentation.screens.onboardingscreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -14,10 +14,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.greene.gwaste.R
+import com.greene.gwaste.presentation.navigation.DestinationRoutes
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun GetStartedScreen() {
+fun OnboardingScreen(
+    navHostController: NavHostController,
+    viewModel: OnboardingViewModel = koinViewModel()
+) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -42,7 +48,13 @@ fun GetStartedScreen() {
         Text(text = "Reduce waste, save money, help the planet.")
 
         Button(
-            onClick = { /*TODO*/ },
+            onClick = {
+                if (viewModel.currentUser != null) {
+                    navHostController.navigate(DestinationRoutes.Home.route)
+                } else {
+                    navHostController.navigate(DestinationRoutes.Login.route)
+                }
+            },
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(text = "Get Started!")
