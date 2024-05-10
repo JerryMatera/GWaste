@@ -10,9 +10,9 @@ class LoginViewModel : ViewModel() {
 
     fun performEvent(events: LoginEvents) {
         when (events) {
-            is LoginEvents.ForgotPassword -> TODO()
-            is LoginEvents.Login -> TODO()
-            is LoginEvents.LoginWithGoogle -> TODO()
+            is LoginEvents.ForgotPassword -> {}
+
+            is LoginEvents.Login -> {}
             is LoginEvents.SetEmail -> {
                 _state.value = state.value.copy(email = events.email)
             }
@@ -21,10 +21,6 @@ class LoginViewModel : ViewModel() {
                 _state.value = state.value.copy(password = events.password)
             }
 
-            is LoginEvents.SignUp -> TODO()
-            is LoginEvents.RememberPassword -> {
-                _state.value = state.value.copy(rememberMe = !state.value.rememberMe)
-            }
         }
     }
 }

@@ -1,132 +1,122 @@
 package com.greene.gwaste.presentation.screens.login
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
-import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.greene.gwaste.R
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import com.greene.gwaste.presentation.navigation.DestinationRoutes
 import com.greene.gwaste.presentation.ui.theme.GWasteTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(
+    navController: NavController,
     state: LoginUIState,
     performEvent: (LoginEvents) -> Unit
 ) {
 
-    Column(
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 8.dp)
-    ) {
-        Text(text = "Welcome Back")
-        Spacer(modifier = Modifier.height(16.dp))
-        Text(text = "Login")
-        Spacer(modifier = Modifier.height(16.dp))
-        OutlinedTextField(
-            value = state.email,
-            onValueChange = { performEvent(LoginEvents.SetEmail(it)) },
-            label = { Text(text = "Email") },
-            placeholder = { Text(text = "abcd@xyz.com") },
-            modifier = Modifier.fillMaxWidth()
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        OutlinedTextField(
-            value = state.password,
-            onValueChange = { performEvent(LoginEvents.SetPassword(it)) },
-            label = { Text(text = "Password") },
-            placeholder = { Text(text = "xxxxxxxxxx") },
-            shape = RoundedCornerShape(percent = 20),
-            modifier = Modifier.fillMaxWidth()
-        )
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .height(56.dp)
-                .toggleable(
-                    value = state.rememberMe,
-                    onValueChange = { },
-                    role = Role.Checkbox
-                )
-                .padding(horizontal = 16.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Checkbox(
-                checked = state.rememberMe,
-                onCheckedChange = null
-            )
-            Text(
-                text = "Remember me",
-                style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier.padding(start = 16.dp)
-            )
-        }
-        Button(onClick = { performEvent(LoginEvents.Login) }) {
-            Text(text = "Login")
-        }
-        TextButton(onClick = { performEvent(LoginEvents.ForgotPassword) }) {
-            Text(text = "Forgot Password")
-        }
+    Scaffold { pV ->
         Column(
+            verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier.fillMaxWidth(0.7f)
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(pV)
+                .padding(horizontal = 16.dp)
         ) {
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth()
+            Text(text = "Welcome Back")
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(text = "Login")
+            Column(
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 16.dp)
             ) {
-                Box(
-                    modifier = Modifier
-                        .height(1.dp)
-                        .weight(1f)
-                        .background(color = Color.Black)
+                OutlinedTextField(
+                    value = state.email,
+                    onValueChange = { performEvent(LoginEvents.SetEmail(it)) },
+                    label = { Text(text = "Email") },
+                    placeholder = { Text(text = "abcd@xyz.com") },
+                    shape = RoundedCornerShape(percent = 20),
+                    modifier = Modifier.fillMaxWidth()
                 )
-                Text(text = "OR")
-                Box(
-                    modifier = Modifier
-                        .height(1.dp)
-                        .weight(1f)
-                        .background(color = Color.Black)
+                OutlinedTextField(
+                    value = state.password,
+                    onValueChange = { performEvent(LoginEvents.SetPassword(it)) },
+                    label = { Text(text = "Password") },
+                    placeholder = { Text(text = "xxxxxxxxxx") },
+                    shape = RoundedCornerShape(percent = 20),
+                    modifier = Modifier.fillMaxWidth()
                 )
             }
-            Image(
-                painter = painterResource(id = R.drawable.google_logo),
-                contentDescription = null,
-                modifier = Modifier.clickable { performEvent(LoginEvents.LoginWithGoogle) })
-            Text(
-                text = "Sign Up",
-                modifier = Modifier.clickable { performEvent(LoginEvents.SignUp) })
+
+            TextButton(
+                onClick = { performEvent(LoginEvents.ForgotPassword) },
+                modifier = Modifier.align(Alignment.End)
+            ) {
+                Text(text = "Forgot Password")
+            }
+            Button(
+                onClick = { performEvent(LoginEvents.Login) },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(text = "Login")
+            }
+            SignUpSection(
+                onClick = { navController.navigate(DestinationRoutes.SignUp.route) },
+                modifier = Modifier.padding(top = 16.dp)
+            )
         }
     }
+}
+
+
+@Composable
+fun SignUpSection(modifier: Modifier = Modifier, onClick: () -> Unit) {
+
+    val annotatedString = buildAnnotatedString {
+        val fullText = "Don't have an account? Sign Up"
+        val startIndex = fullText.indexOf("Sign Up")
+        val endIndex = startIndex + "Sign Up".length
+        append(fullText)
+
+        addStyle(
+            start = startIndex,
+            end = endIndex,
+            style = SpanStyle(
+                color = MaterialTheme.colorScheme.primary,
+                textDecoration = TextDecoration.Underline
+            )
+        )
+    }
+    Text(
+        text = annotatedString,
+        modifier = modifier.clickable { onClick() },
+    )
 }
 
 @Preview(showSystemUi = true)
@@ -136,6 +126,7 @@ private fun LoginScreenPrev() {
         LoginScreen(
             state = LoginUIState(),
             performEvent = {},
+            navController = NavController(LocalContext.current)
         )
     }
 }
